@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Práctica 2</title>
+</head>
+<body>
+    <h1>Ejercicio 2</h1>
+    <h2>Array original</h2>
+    <ul id="listaNoRep"></ul>
+    <h2>Numero de veces que aparece</h2>
+    <ul id="listaNumVeces"></ul>
+    <script>
+        const listaPalabras = (array, idLista) => {
+            const ul = document.getElementById(idLista);
+            ul.innerHTML = "";
+
+            array.forEach(palabra => {
+                const li = document.createElement("li");
+                li.textContent = palabra;
+                ul.appendChild(li);
+            });
+        };
+        const contarPalabras = array => {
+            const mapa = new Map();
+            array.forEach(palabra => {
+                mapa.set(palabra, (mapa.get(palabra) || 0) + 1);
+            });
+            return mapa;
+        };
+
+        let palabra = prompt("dime una palabra");
+        const lista = [];
+
+        while (palabra != "" && palabra != null) {
+            lista.push(palabra.trim());
+            palabra = prompt("dime otra palabra");
+        }
+
+        const nVeces = contarPalabras(lista);
+
+        listaPalabras(lista, "listaNoRep");
+        listaPalabras(
+            [...nVeces].map(([palabra, veces]) => `${palabra}: ${veces}`),
+            "listaNumVeces"
+        );
+    </script>
+</body>
+</html>

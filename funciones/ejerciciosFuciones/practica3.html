@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Práctica 3</title>
+</head>
+<body>
+    <h1>Ejercicio 3</h1>
+    <h2>Multiplicar por 2:</h2>
+    <ul id="listaMultiplicar"></ul>
+    <h2>Palabras en mayúscula</h2>
+    <ul id="listaMayus"></ul>
+    <h2>Factorial de cada número </h2>
+    <ul id="listaFactorial"></ul>
+    <script>
+        const listaPalabras = (array, idLista) => {
+            const ul = document.getElementById(idLista);
+            ul.innerHTML = "";
+
+            array.forEach(palabra => {
+                const li = document.createElement("li");
+                li.textContent = palabra;
+                ul.appendChild(li);
+            });
+        };
+
+        // Aplica el callback a cada elemento, guarda el resultado en el mismo array
+        const filtro = (array, callback) => {
+            for (let i = 0; i < array.length; i++) {
+                array[i] = callback(array[i]);
+            }
+        };
+
+        const multiplicacionPor2 = n => n * 2;
+
+        const cambioMayusculas = palabra => palabra.toUpperCase();
+
+        const factorial = n => {
+            let resultado = 1;
+            for (let i = 2; i <= n; i++) {
+                resultado *= i;
+            }
+            return resultado;
+        };
+
+        // x por 2
+        const numeros = [1, 4, 65, 21];
+        filtro(numeros, multiplicacionPor2);
+        listaPalabras(numeros, "listaMultiplicar");
+
+        // palabras a mayúsculas
+        const palabras = ["ordenador", "perro", "agua", "pepe"];
+        filtro(palabras, cambioMayusculas);
+        listaPalabras(palabras, "listaMayus");
+
+        // factorial de cada número
+        const paraFactorial = [1, 2, 3, 4, 5];
+        filtro(paraFactorial, factorial);
+        listaPalabras(paraFactorial, "listaFactorial");
+    </script>
+</body>
+</html>
