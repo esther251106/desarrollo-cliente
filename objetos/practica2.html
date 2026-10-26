@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Practica 2</title>
+</head>
+<body>
+    <h1>Práctica 2</h1>
+    <div id="resultados"></div>
+
+    <script>
+        class Ordenador {
+            // constructor que recibe datos
+            constructor(marca, modelo, memoriaRAM = 4, HDD = 512, pulgadas = 17) {
+                if(marca == ""){
+                    throw new Error("La marca no puede estar vacía");
+                } else {
+                    this.marca = marca;
+                }
+                if(modelo == ""){
+                    throw new Error("El modelo no puede estar vacío");
+                } else {
+                    this.modelo = modelo;
+                }
+               this.memoriaRAM = memoriaRAM;
+               this.HDD = HDD;
+               this.pulgadas = pulgadas; 
+            }
+
+            //metodos
+            toString() {
+                return `Marca: ${this.marca}, Modelo: ${this.modelo}, Memoria RAM: ${this.memoriaRAM}, HDD: ${this.HDD}, Pulgadas: ${this.pulgadas}`;
+            }
+        }
+
+        class OrdenadorPortatil extends Ordenador {
+            constructor (marca, modelo, memoriaRAM = 4, HDD = 256, pulgadas = 12, autonomia = 4) {
+                super(marca,modelo,memoriaRAM, HDD, pulgadas);
+                this.autonomia = autonomia;
+            }
+
+            //metodos
+            toString(){
+                return `Marca: ${this.marca}, Modelo: ${this.modelo}, Memoria RAM: ${this.memoriaRAM}, HDD: ${this.HDD}, Pulgadas: ${this.pulgadas}, Autonomia: ${this.autonomia}`;
+            }
+        }
+
+        let ord = new Ordenador("HP", "Pavilion");
+        let ordP = new OrdenadorPortatil("Asus","ZenBook");
+
+        let ordString = ord.toString();
+        let ordPSring = ordP.toString();
+        let contenedor = document.getElementById("resultados");
+        contenedor.innerHTML = `
+        <p> Ordenador: ${ordString}</p>
+        <p> Ordenador portatil: ${ordPSring}</p>`
+
+    </script>
+</body>
+</html>
