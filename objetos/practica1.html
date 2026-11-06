@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Practica 1</title>
+</head>
+
+<body>
+    <h1>Práctica 1</h1>
+    <div id="resultados"></div>
+
+    <script>
+        class Rectangulo {
+            // constructor que recibe datos iniciales
+            constructor(alto, ancho) {
+                // atributo/propiedad
+                if (alto <= 0) {
+                    this.alto = 1;
+                } else {
+                    this.alto = alto;
+                }
+                /* si el alto es <= 0 asiga 1, si es falso asigna el alto
+                this.alto = (alto <= 0) ? 1 : alto;*/
+                if (ancho <= 0) {
+                    this.ancho = 1;
+                } else {
+                    this.ancho = ancho;
+                }/* si el ancho es <= 0 asiga 1, si es falso asigna el ancho
+                this.ancho = (ancho <= 0) ? 1 : ancho;*/
+
+            }
+
+            //metodos
+            calcularAreaRectangulo() {
+                return this.ancho * this.alto;
+            }
+
+            copiaRectangulo(){
+                return new Rectangulo(this.alto,this.ancho);
+            }
+
+            cambiarDimensionesRectangulo(nuevoAlto, nuevoAncho){
+                this.alto = (nuevoAlto <= 0) ? 1 : nuevoAlto;
+                this.ancho = (nuevoAncho <= 0) ? 1 : nuevoAncho;
+            }
+
+            compararRectangulos(otroRectangulo) {
+                let areaActual = this.calcularAreaRectangulo();
+                let areaOtroRec = otroRectangulo.calcularAreaRectangulo();
+                if(areaActual > areaOtroRec) {
+                    return "mayor";
+                } else if (areaActual < areaOtroRec) {
+                    return "menor";
+                } else {
+                    return "igual";
+                }
+            }
+        }
+        let rect1 = new Rectangulo(5,10);
+        let rect2 = new Rectangulo(4,6);
+
+        let areaRect1 = rect1.calcularAreaRectangulo();
+        let comparacion = rect1.compararRectangulos(rect2);
+        let contenedor = document.getElementById("resultados");
+        contenedor.innerHTML = `
+        <p>Área rectángulo 1:  <strong>${areaRect1}</strong></p>
+        <p> Comparacion rectangulo 1 con el 2: ${comparacion}</p>`
+        
+    </script>
+</body>
+
+</html>
