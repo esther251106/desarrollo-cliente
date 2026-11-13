@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Práctica 1</title>
+    <style>
+        #imagen {
+            background-color: black;
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-size: cover;
+            background-position: center;
+        }
+        h1 {
+            color: white;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div id="imagen">
+        <h1>Pulsa Alt + F12 para cambiar la imagen de fondo</h1>
+    </div>
+
+    <script>
+        const contenedor = document.getElementById("imagen");
+
+        document.addEventListener("keydown", function(event) {
+            if (event.altKey && event.key === "F12") {
+                event.preventDefault(); // Evita que se abra la consola del navegador
+                cambiarImagen();
+            }
+        });
+
+        function cambiarImagen() {
+            // Usamos el servicio de picsum para obtener una imagen aleatoria
+            // Añadimos ?random=... para forzar que cargue una nueva cada vez que se pulse
+            const randomUrl = `https://picsum.photos/1920/1080?random=${Date.now()}`;
+            contenedor.style.backgroundImage = `url('${randomUrl}')`;
+        }
+
+    </script>
+</body>
+</html>

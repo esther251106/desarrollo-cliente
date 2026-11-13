@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Práctica 3</title>
+    <style>
+        .capa {
+            width: 200px;
+            height: 100px;
+            box-sizing: border-box;
+            border: 1px solid black;
+            padding: 10px;
+            position: fixed;
+            top: 20px;
+        }
+
+        #capa1 {
+            left: 50px;
+            background-color: yellow;
+        }
+
+        #capa2 {
+            left: 400px;
+            background-color: white;
+        }
+
+        a {
+            position: fixed;
+            top: 150px;
+            left: 50px;
+        }
+    </style>
+</head>
+<body>
+    <div id="capa1" class="capa" draggable="true">
+        Soy arrastrable
+    </div>
+
+    <div id="capa2" class="capa">
+        Soy el destino
+    </div>
+
+    <script>
+        const capa1 = document.getElementById("capa1");
+        const capa2 = document.getElementById("capa2");
+
+        capa1.addEventListener("dragstart", function (event) {
+            event.dataTransfer.setData("text/plain", "capa1");
+            capa1.style.opacity = "0.5";
+        });
+
+        capa1.addEventListener("dragend", function () {
+            capa1.style.opacity = "1";
+            capa2.style.backgroundColor = "white";
+        });
+
+        capa2.addEventListener("dragover", function (event) {
+            // Permite soltar el elemento sobre esta capa.
+            event.preventDefault();
+            capa2.style.backgroundColor = "red";
+        });
+
+        capa2.addEventListener("dragleave", function () {
+            capa2.style.backgroundColor = "white";
+        });
+
+        capa2.addEventListener("drop", function (event) {
+            event.preventDefault();
+
+            if (event.dataTransfer.getData("text/plain") === "capa1") {
+                capa1.style.display = "none";
+                capa2.textContent = "Lo has logrado";
+                capa2.style.backgroundColor = "white";
+            }
+        });
+    </script>
+</body>
+</html>

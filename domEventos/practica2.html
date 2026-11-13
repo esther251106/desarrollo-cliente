@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Practica 2</title>
+</head>
+<body>
+    <form action="">
+        <label for="email">Email</label>
+        <input type="text" id="email" name="email" placeholder="xxxx@yyyy.zzzz" required>
+        <span id="email-error" class="error"></span>
+        <label for="password">Password</label>
+        <input type="password" id="password" name="password" placeholder="Contraseña" required>
+        <span id="password-error" class="error"></span>
+
+        <!--el boton empieza desactivado y se activa cuando el usuario ingresa un email y una contraseña validos-->
+        <button type="submit" id="btn-enviar" disabled>Enviar</button>
+    </form>
+
+    <script>
+        const contra = document.getElementById("password");
+        const email = document.getElementById("email");
+        const errorEmail = document.getElementById("email-error");
+        const errorContra = document.getElementById("password-error");
+        const boton = document.getElementById("btn-enviar");
+        // variables para validar el email y la contraseña
+        let validarE = false;
+        let validarC = false;
+
+        // FUNCION ACTIVAR Y DESACTIVAR BOTON
+            function comprobarBoton() {
+                boton.disabled = !(validarE && validarC);
+            }
+        //evento blur para validar la contraseña y el email cuando el usuario sale del campo
+        //VALIDAR CONTRASEÑA
+        contra.addEventListener("blur", function() {
+            if (contra.value.length < 8 || contra.value.length > 10) {
+                alert("La contraseña debe tener entre 8 y 10 caracteres");
+                validarC = false;
+            } else {
+                validarC = true;
+            }
+            comprobarBoton();
+        });
+        contra.addEventListener("focus", function() {
+            errorContra.textContent = "";
+            validarC = false;
+        })
+
+        //VALIDAR EMAIL
+        email.addEventListener("blur", function() {
+            if(!email.value.includes("@") || !email.value.includes(".")) {
+                alert("El email debe contener un @ y un .");
+                validarE = false;
+            } else {
+                validarE = true;
+            }
+            comprobarBoton();
+        });
+        email.addEventListener("focus", function() {
+            errorEmail.textContent = "";
+            validarE = false;
+        })
+ 
+
+    </script>
+</body>
+</html>

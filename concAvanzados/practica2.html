@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Practica 2</title>
+</head>
+<body>
+    <h1>Temporizador con promesas</h1>
+    <div id="contenedor"></div>
+    <script>
+        // funcion q genera el temporizador basado en promesas
+        function temporizador(milisegundos) {
+           return new Promise((resolve, reject) => {
+                // temporizador para cuando pasa el tiempo especificado
+                let timeExito = setTimeout(() => {
+                    resolve("Tiempo concluido");
+                }, milisegundos);
+
+                // temporizador si pasa el DOBLE del tiempo especificado
+                let timeFallo = setTimeout (() => {
+                    clearTimeout(timeExito); // cancelamos el temporizador de exito
+                    reject("El tiempo no va bien");
+                }, milisegundos * 2);
+           });
+        }
+
+        const contenedor= document.getElementById("contenedor");
+
+        // invoxamos la funcion con 5s
+        temporizador(5000)
+            .then((mensaje) => {
+                contenedor.textContent = mensaje;
+            })
+            .catch((error) => {
+                contenedor.textContent = error;
+            });
+    </script>
+</body>
+</html>
