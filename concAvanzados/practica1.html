@@ -1,0 +1,57 @@
+<!--Crea una página que muestre el número de visitas que has realizado en la página. La cookie
+que creas caducará en un mes. Si se visita la página más de 10 veces, el contador se pondrá
+a cero y se borrará la cookie existente.-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Practica 1</title>
+</head>
+<body>
+    <h1>Contador de visitas</h1>
+    <p id="textoResultado"></p>
+    <script>
+        //creamos funcion para obtener el valor de la cookie
+        function getCookie(nombre) {
+            // separamos las cookies en un array por el caracter "; " 
+            let cookies = document.cookie.split("; ");
+            // recorremos las cookies y buscamos la q tenga el nombre especificado
+            for (let i = 0; i < cookies.length; i++) {
+                let partes = cookies[i].split("="); // separamos el nombre (la llave) y el valor de la cookie (el nº de visitas)
+                if (partes[0] === nombre) {
+                    return partes[1]; // devoolvemos el valor de la cookies si coincide con el nombre
+                }
+            }
+            return null; // si no se encuentra la cookie, devolvemos null
+        }
+        //leemos la cookie llamada "visitas" y hacemos el contador
+        let valorCookie = getCookie("visitas");
+        let visitas = 0;
+
+        //si no existe la cookie empezamos en 1, si ya existe le sumamos 1
+        if(valorCookie === null) {
+            visitas = 1;
+        } else  { 
+            visitas = parseInt(valorCookie) + 1;
+        }
+        
+        let texto = document.getElementById("textoResultado");
+
+        // comprobamos si pasamos de 10 visitas
+        if (visitas > 10) {
+            document.cookie = "visitas=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;"; // borramos la cookie
+            visitas = 0; // reiniciamos el contador
+            texto.textContent = "Has visitado la página más de 10 veces, el contador se ha reiniciado.";
+        } else {
+            // creamos la cookie con el valor actualizado y una caducidad de un mes
+            let fechaExpiracion = new Date();
+            // sumamos un mes a la fecha actual
+            fechaExpiracion.setMonth(fechaExpiracion.getMonth() + 1); 
+            document.cookie = "visitas=" + visitas + "; expires=" + fechaExpiracion.toUTCString() + "; path=/;"; // creamos la cookie
+            texto.textContent = "Has visitado la página " + visitas + " veces.";
+        }
+    </script>
+</body>
+</html>
